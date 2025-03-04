@@ -1,33 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useRef } from 'react'
 import './App.css'
+import GameSetup from './components/GameSetup'
+// import GamePlay from './components/GamePlay'
+// import GameResult from './components/GameResult'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [setup, setSetup] = useState({
+    amount: 0,
+    category: 0,
+    level: "",
+    qtype:"",
+  })
+
+  // const gameSetupValues =(e) => {
+
+    
+  // }
+
+
+
+  // const fetchGameSetup = async (e) => {
+	// 	e.preventDefault();
+  //   try{
+  //   const response = await fetch(`/api/gameSetup?amount=${setup.amount}&category=${setup.category}&difficulty=${setup.level}&type=${setup.qtype}`); 
+    
+  //   const data = await response.json();
+  //   return setSetup(data); //store data in state 
+  //   }catch(error){
+  //   console.error("error fetching data: ", error)
+  // }}
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <GameSetup 
+    // data={data}
+    />
+    
+    {/* <GamePlay />
+    <GameResult /> */}
     </>
   )
 }
