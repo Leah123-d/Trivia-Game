@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     //setting up a proxy to direct all API calls to nodejs API
     proxy: {
-      '/api': {
+      '/triviaGame': {
         target: 'http://localhost:3000',
         changeOrigin: true
       }

@@ -12,12 +12,13 @@ app.use(bodyParser.json()) //Middleware to parse JSON
 
 // const { authToken } = process.env;
 
-// app.get('/', (req,res) => {
-//   res.send("Hello! Welcome to the server!")
+// app.get('/triviaGame', (req,res) => {
+//   res.send("Hello! Welcome to the server!") // I think this would be sending to the front end. 
 // })
 
-
-
+app.get('/', (req,res) => {
+  res.json("Hello! Welcome to the server!") //response .json is returning to the local host/ the url set
+})
 
 app.listen(port, () => {
   console.log(`Server is listening port ${port}`)
