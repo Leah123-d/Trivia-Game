@@ -10,23 +10,28 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json()) //Middleware to parse JSON
 
-// const { authToken } = process.env;
+
 
 // app.get('/triviaGame', (req,res) => {
 //   res.send("Hello! Welcome to the server!") // I think this would be sending to the front end. 
 // })
 
-app.get('/api/archives', async (req,res) => { //creates an endpoint for the route/api
-  console.log('API request received for archive');
+// https://opentdb.com/api.php?amount=12&category=30&difficulty=easy&type=multiple
+// https://opentdb.com/api.php?amount=12&category=18&difficulty=medium&type=boolean
 
-  const { date } = req.query //this will search the request for this date 
+app.get('/triviaGame', async (req,res) => { //creates an endpoint for the route/api
+  console.log('API request received for game setup');
 
-  if(!date) {
-    return res.status(400).json({error: "Date required!"});
+  const { amount, category, level, qtype } = req.query //this will search the request for these parameters 
+  console.log(amount, category, level, qtype)
+
+  if(!amount || !category || !level || !qtype){
+    return res.status(400).json({error: "paramaters required!"});
   }
 
   try{
-    const response = await fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${authToken}`) //get the URL and pass it to the fetch function as a string
+    const response = await fetch(`https://opentdb.com/api.php?amount=12&category=30&difficulty=easy&type=multiple`) 
+    //get the URL and pass it to the fetch function as a string
     //date will be dynamic, however, let's test route first
     //once the fetch resolves we have to check if the response is okay
 
@@ -41,10 +46,6 @@ app.get('/api/archives', async (req,res) => { //creates an endpoint for the rout
   }
 });
 
-
-app.get('/', (req,res) => {
-  res.json("Hello! Welcome to the server!") //response .json is returning to the local host/ the url set
-})
 
 app.listen(port, () => {
   console.log(`Server is listening port ${port}`)
