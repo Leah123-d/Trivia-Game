@@ -46,9 +46,9 @@ function GameSetup ({amount,category,level,qtype,onChange,onSubmit}) {
         <li
           id="category"
           name="category" 
-          onClick={ () => handleClick("category", "30") }
+          onClick={ () => handleClick("category", "17") }
         
-        ><a>Science: Gadgets</a></li>
+        ><a>Science & Nature</a></li>
 
         <li
          id="category"
@@ -71,7 +71,7 @@ function GameSetup ({amount,category,level,qtype,onChange,onSubmit}) {
 
         <li
          name="multi" 
-         onClick={ () => handleClick("qtype","multi") }
+         onClick={ () => handleClick("qtype","multiple") }
 
         ><a>multiple choice</a></li>
         </ul>

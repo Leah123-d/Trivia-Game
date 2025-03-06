@@ -41,6 +41,8 @@ app.get('/triviaGame', async (req,res) => { //creates an endpoint for the route/
     //date will be dynamic, however, let's test route first
     //once the fetch resolves we have to check if the response is okay
 
+    console.log(response);
+
     const data = await response.json();//the response is converted to json and this returns a promise 
     console.log("sending data to the front end: ", data);
     res.json(data); // Return the fetched data
