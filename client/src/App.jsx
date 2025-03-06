@@ -13,6 +13,11 @@ function App() {
     qtype:"",
   })
 
+  const[gameData,setGameData] = useState(null); //stores fetched game data
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+
+
   const handleChange = (e) => {
     setGameValues ({
       ...gameValues,
@@ -22,18 +27,37 @@ function App() {
 
   const fetchGameSetup = async (e) => {
 		e.preventDefault();
+    console.log("Game values submitted:", gameValues);
+
     try{
-    const response = await fetch(`/gameSetup?amount=${gameValues.amount}&category=${gameValues.category}&difficulty=${gameValues.level}&type=${gameValues.qtype}`); 
+    const response = await fetch(
+      `/triviaGame?amount=${gameValues.amount}&category=${gameValues.category}&difficulty=${gameValues.level}&type=${gameValues.qtype}`); 
+    
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
     const data = await response.json();
-    return setGameValues(data); //I think these needs to be a map
+    console.log("fetched data:", data);
+
+    setGameData(data); //storing the API response
     }catch(error){
     console.error("error fetching data: ", error)
-  }}
+    
+  }
+  
+}
 
-  // useEffect(() => {
-  //   fetchGameSetup();
 
-  // },);
+
+  useEffect(() => {
+    if(isSubmitted) {
+      fetchGameSetup().then(() => setIsSubmitted(false));
+    }
+  }, [isSubmitted]);
+
+
+
 
 
   return (
@@ -46,9 +70,11 @@ function App() {
       onChange={handleChange} 
       onSubmit={fetchGameSetup} 
     />
+    {gameData && <pre>{JSON.stringify(gameData, null, 2)}</pre>}
     
-    {/* <GamePlay />
-    <GameResult /> */}
+      {/* <GamePlay
+     will use game data to feed into game play/>ty
+      <GameResult /> */}
     </>
   )
 }
