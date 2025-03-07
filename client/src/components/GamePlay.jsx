@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 
-function GamePlay ({ gameData }) {
+function GamePlay ({ gameData, handleShowScore, updateScore }) {
 
   //need to fix the next question button, it is not forwarding to the next question 
   //need to abstract the score portion to create it in its own component
@@ -9,14 +9,13 @@ function GamePlay ({ gameData }) {
   const isAnswered = useRef(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [feedback, setFeedback] = useState("");
-  const [showScore, setShowScore ] = useState(false);
-  const [correctScore, setCorrectScore ] = useState(0);
-  const [wrongScore, setWrongScore ] = useState(0);
+  
+
 
   if (!gameData || !gameData.results || gameData.results.length === 0) {
     return <p>Loading game...</p>; // Prevents errors if gameData is undefined or empty
   }
-  console.log("GameData prop: ", gameData);
+  // console.log("GameData prop: ", gameData);
 
   const currentQuestion = gameData.results[questionIndex];
 
@@ -34,22 +33,22 @@ function GamePlay ({ gameData }) {
     decodeHtml(currentQuestion.correct_answer)].sort(() => Math.random() - 0.5);
 
 
-  const handleClick = (selectedAnswer) => {
-    if (isAnswered.current) 
-      return;
+  // const handleClick = (selectedAnswer) => {
+  //   if (isAnswered.current) 
+  //     return;
 
-    if(selectedAnswer === currentQuestion.correct_answer){
-      setFeedback("correct!");
-      setCorrectScore(prevcorrectScore => prevcorrectScore +1);
+  //   if(selectedAnswer === currentQuestion.correct_answer){
+  //     setFeedback("correct!");
+  //     setCorrectScore(prevcorrectScore => prevcorrectScore +1);
       
-    } else {
-      setWrongScore(prevwrongScore => prevwrongScore +1);
+  //   } else {
+  //     setWrongScore(prevwrongScore => prevwrongScore +1);
       
-    }
+  //   }
     
-    isAnswered.current = true
+  //   isAnswered.current = true
 
-  } 
+  // } 
 
   const handleNextQuestion = () => {
       if(questionIndex < gameData.results.length - 1) {
@@ -90,7 +89,9 @@ function GamePlay ({ gameData }) {
           {isAnswered.current && (
             <button className="btn btn-soft btn-accent"
             onClick={handleNextQuestion}>
-            {questionIndex < gameData.results.length - 1 ? "Next Question" : "See Results"}
+            {questionIndex < gameData.results.length - 1 ? "Next Question" : `see results`}
+            {showScore === true ? "correct answer" {{correctScore}} "wrong answers" {{wrongScore}} : ""}
+            
            
           </button>
           )}
