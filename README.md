@@ -69,5 +69,6 @@ Here are ideas that I would like to add to this project in the future:
 
 ## Project Preview: 
 
+![triviagame](https://github.com/user-attachments/assets/879d9d20-edd1-4946-95de-d3770907c0df)
 
 
