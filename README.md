@@ -62,8 +62,9 @@ For Frontend
 
 Here are ideas that I would like to add to this project in the future: 
 1. Add more CSS styling to make the app more personalized
-2. Add additional categories for quiz topics 
-3. Add more testing for each component 
+2. Add better handling for closing drop-down menus
+3. Add additional categories for quiz topics 
+4. Add more testing for each component 
 
 
 
