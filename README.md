@@ -2,11 +2,9 @@
 
 ## Project Objective:
 
-This is my first full stack application build. 
-
 This project highlights the skills of React, useState hooks and Express.js.
 
-This project utilizes a backend server, created with Express.js and it is making calls to an API, displaying the data to the frontend.
+This project utilizes a backend server, created with Express.js. Making calls to an API, displaying the data to the frontend.
 
 ## Technologies used
 
@@ -17,6 +15,9 @@ Node.js
 VSCode 
 
 ### Additional Resources
+
+https://opentdb.com/api_config.php
+
 
 ## Installation Instructions
 
@@ -42,14 +43,8 @@ npm install express
 
 ### api key setup:
 
-1. Click this to sign up for and sign up to generate a key
-2. Check your email for the api key
-3. In your code editor create a file named .env
-4. In .env enter the belwo replace the ENTERAPIKEYHERE with the API generated from :
+This API does not require an API key. 
 
-`````````
-authToken = ENTERAPIKEYHERE
-`````````
 
 ### How to run:
 For Backend
@@ -66,6 +61,9 @@ For Frontend
 ## Future Implementation: 
 
 Here are ideas that I would like to add to this project in the future: 
+1. Add more CSS styling to make the app more personalized
+2. Add additional categories for quiz topics 
+3. Add more testing for each component 
 
 
 
