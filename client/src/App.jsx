@@ -26,8 +26,7 @@ function App() {
     })
   }
 
-  const fetchGameSetup = async (e) => {
-		e.preventDefault();
+  const fetchGameSetup = async () => {
     console.log("Game values submitted:", gameValues);
     setLoading(true);
     try{
@@ -45,7 +44,7 @@ function App() {
     console.error("error fetching data: ", error);
     
     } finally{
-      setLoadning(false);
+      setLoading(false);
     } 
   
 };
@@ -53,7 +52,7 @@ function App() {
   useEffect(() => {
     if(isSubmitted) {
       fetchGameSetup();
-      setIsSubmitted(false);
+      setIsSubmitted(true);
     }
   }, [isSubmitted]);
 
@@ -77,10 +76,15 @@ function App() {
     />
     )}
 
-    {gameData && <pre>{JSON.stringify(gameData, null, 2)}</pre>}
+    {/* {gameData && <pre>{JSON.stringify(gameData, null, 2)}</pre>} */}
 
     {isSubmitted && !loading && gameData && <GamePlay 
-                                                gameData={gameData}/>}
+                                                gameData={gameData}
+                                                
+                                                />}
+    {/* <GamePlay 
+                                                gameData={gameData}/> */}
+
   
      {/*will use game data to feed into game play/>ty
       <GameResult /> */}
