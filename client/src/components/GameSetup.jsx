@@ -18,9 +18,9 @@ function GameSetup ({amount,category,level,qtype,onChange,onSubmit}) {
     };
     onChange(event); //passing the events to the onChange
 
-    if(qtype.value === boolean ){
-      input.lvlHard.disabled = "true";
-    }
+    // if(qtype.value === boolean ){
+    //   input.lvlHard.disabled = "true";
+    // }
   };
 
 
@@ -99,7 +99,6 @@ function GameSetup ({amount,category,level,qtype,onChange,onSubmit}) {
                 id="lvlHard"
                 name="level"  
                 value="hard"
-                disabled = "false"
                 onChange={onChange}/>
         
       <button className="btn btn-soft btn-primary">Create Game</button> 

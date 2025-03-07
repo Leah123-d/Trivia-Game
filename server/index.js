@@ -34,6 +34,8 @@ app.get('/triviaGame', async (req,res) => { //creates an endpoint for the route/
   if(!amount && !category && !difficulty && !type){
     return res.status(400).json({error: "paramaters required!"});
   }
+  //front end neds to handle this error 
+  //also needs to add logic to handle empty response 
 
   try{
     const response = await fetch(`https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`) 
