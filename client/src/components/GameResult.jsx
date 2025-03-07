@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 //prop that will be passsed to this component will be the data from the 
 //call back function to this component to display the score and reset button
 

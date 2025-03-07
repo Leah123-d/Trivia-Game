@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import './App.css'
 import GameSetup from './components/GameSetup'
 import GamePlay from './components/GamePlay'
-// import GameResult from './components/GameResult'
+import GameResult from './components/GameResult'
+import GameErrors from './components/GameErrors'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
   const [correctScore, setCorrectScore ] = useState(0);
   const [wrongScore, setWrongScore ] = useState(0);
   const [showScore, setShowScore ] = useState(false);
+  const [errorHandle, setErrorHandle] = useState(false);
 
   const handleChange = (e) => {
     setGameValues ({
@@ -36,14 +38,21 @@ function App() {
 
     if(!response.ok){
       throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    } 
     const data = await response.json();
+    
     console.log("fetched data:", data);
+ 
     setGameData(data); //storing the API response
 
+    if(data.response_code != 0){
+      console.log("no results found");
+      setErrorHandle(true);
+    }
+
     } catch(error){
-    console.error("error fetching data: ", error);
-    
+     
+      console.error("error fetching data: ", error);
     } finally{
       setLoading(false);
     } 
@@ -75,11 +84,13 @@ function App() {
     setWrongScore(0);
     setShowScore(false);
     setIsSubmitted(false);
+    setGameValues({ 
+      amount: 0,
+      category: 0,
+      level: "",
+      qtype:"",});
+    setErrorHandle(false);
   }
-
-
-
-
 
   return (
     <>
@@ -99,17 +110,27 @@ function App() {
 
     {/* {gameData && <pre>{JSON.stringify(gameData, null, 2)}</pre>} */}
 
-    {isSubmitted && !loading && gameData && 
-      <GamePlay 
-        gameData={gameData}
-        updateScore={updateScore}
-        onShowScore={handleShowScore}
-        />}
+    {showScore ? (
+       <GameResult 
+       correctScore={correctScore}
+       wrongScore={wrongScore}
+       onRestart={restartQuiz}/>
+  
+      ):(isSubmitted && !loading && gameData && (
+        <GamePlay 
+          gameData={gameData}
+          updateScore={updateScore}
+          onShowScore={handleShowScore}
+          />
+        ))
+      }
+      {errorHandle ? 
+      <GameErrors 
+        errorHandle={errorHandle}
+        onRestart={restartQuiz}
+        /> : ""
 
-      <GameResult 
-        correctScore={correctScore}
-        wrongScore={wrongScore}
-        onRestart={restartQuiz}/>
+      }
     </>
   )
 }

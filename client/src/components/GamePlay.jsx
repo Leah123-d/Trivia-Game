@@ -4,6 +4,7 @@ function GamePlay ({ gameData, updateScore, onShowScore }) {
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const isAnswered = useRef(false);
+  const feedbackRef = useRef("");
 
 
 
@@ -32,8 +33,10 @@ function GamePlay ({ gameData, updateScore, onShowScore }) {
     if (isAnswered.current) 
       return;
     if(selectedAnswer === currentQuestion.correct_answer){
+      feedbackRef.current = "correct!"
       updateScore(true);
     } else {
+      feedbackRef.current = "incorrect!"
       updateScore(false);
     }
     isAnswered.current = true
@@ -43,12 +46,12 @@ function GamePlay ({ gameData, updateScore, onShowScore }) {
   const handleNextQuestion = () => {
       if(questionIndex < gameData.results.length - 1) {
         setQuestionIndex((prevIndex => prevIndex + 1));
+        feedbackRef.current="";
         isAnswered.current = false;
       } else{
-        setShowScore(true);
+        onShowScore()
       }
   };
-
 
   return(
     <div className="questionContainer">
@@ -69,18 +72,15 @@ function GamePlay ({ gameData, updateScore, onShowScore }) {
         </button>
 
         ))}
-        <p>{feedback}</p>
+        <p>{feedbackRef.current}</p>
 
-        <div className="score">
+        <div className="question-container">
 
           
           {isAnswered.current && (
-            <button className="btn btn-soft btn-accent"
-            onClick={handleNextQuestion}>
-            {questionIndex < gameData.results.length - 1 ? "Next Question" : `see results`}
-            {showScore === true ? "correct answer" {{correctScore}} "wrong answers" {{wrongScore}} : ""}
-            
-           
+            <button className="btn btn-soft btn-accent" onClick={handleNextQuestion}>
+            {questionIndex < gameData.results.length - 1 ? "Next Question" : "See Results"}
+
           </button>
           )}
         </div>
@@ -94,5 +94,3 @@ function GamePlay ({ gameData, updateScore, onShowScore }) {
 
 export default GamePlay
 
-{/* 
-<div className="scoreResult">Corretly_answered: {correctScore}. You got  incorrect answers:{wrongScore}</div> */}
