@@ -26,6 +26,7 @@ function GameSetup ({amount,category,level,qtype,onChange,onSubmit}) {
 
   return (
    <>
+    
    <div>
     <h1>Setup your Game!</h1>
     <form onSubmit={handleSubmit}>
