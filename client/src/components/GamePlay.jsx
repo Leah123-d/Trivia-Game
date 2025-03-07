@@ -1,15 +1,10 @@
 import { useState, useRef } from 'react'
 
-function GamePlay ({ gameData, handleShowScore, updateScore }) {
+function GamePlay ({ gameData, updateScore, onShowScore }) {
 
-  //need to fix the next question button, it is not forwarding to the next question 
-  //need to abstract the score portion to create it in its own component
-  //this will need a call back function to feed the score to the parent to send to the sibling 
-
-  const isAnswered = useRef(false);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [feedback, setFeedback] = useState("");
-  
+  const isAnswered = useRef(false);
+
 
 
   if (!gameData || !gameData.results || gameData.results.length === 0) {
@@ -33,30 +28,23 @@ function GamePlay ({ gameData, handleShowScore, updateScore }) {
     decodeHtml(currentQuestion.correct_answer)].sort(() => Math.random() - 0.5);
 
 
-  // const handleClick = (selectedAnswer) => {
-  //   if (isAnswered.current) 
-  //     return;
+  const handleClick = (selectedAnswer) => {
+    if (isAnswered.current) 
+      return;
+    if(selectedAnswer === currentQuestion.correct_answer){
+      updateScore(true);
+    } else {
+      updateScore(false);
+    }
+    isAnswered.current = true
 
-  //   if(selectedAnswer === currentQuestion.correct_answer){
-  //     setFeedback("correct!");
-  //     setCorrectScore(prevcorrectScore => prevcorrectScore +1);
-      
-  //   } else {
-  //     setWrongScore(prevwrongScore => prevwrongScore +1);
-      
-  //   }
-    
-  //   isAnswered.current = true
-
-  // } 
+  } 
 
   const handleNextQuestion = () => {
       if(questionIndex < gameData.results.length - 1) {
         setQuestionIndex((prevIndex => prevIndex + 1));
-        setFeedback("");
         isAnswered.current = false;
       } else{
-        setFeedback("quiz completed!");
         setShowScore(true);
       }
   };

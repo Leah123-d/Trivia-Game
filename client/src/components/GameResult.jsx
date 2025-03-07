@@ -1,12 +1,19 @@
 import { useState } from 'react'
 
-//prop that will be passsed to this component will be the data from the call back function to this component to display the score and reset button
+//prop that will be passsed to this component will be the data from the 
+//call back function to this component to display the score and reset button
 
-function GameResult ({correctScore,wrongScore, restartQuiz}) {
-  const [gameReset, setGameReset] = useState("") //might need a call back function to take the user to hte game setup page
+function GameResult ({ correctScore, wrongScore, onRestart }) {
 
   return (
-    <p>Game Results</p>
+    <div className="socre-container">
+      <h2>Quiz Completed!</h2>
+        <p>correct answers! {correctScore}</p>
+        <p>wrong answers! {wrongScore}</p>
+        <button className="btn btn-soft btn-accent" onClick={onRestart}>
+          Restart
+        </button>
+    </div>
 
   )
 }
