@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 
-function GameSetup ({amount,category,level,qtype,onChange,onSubmit}) {
+function GameSetup ({amount,onChange,onSubmit}) {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
