@@ -13,11 +13,12 @@ function App() {
     qtype:"",
   })
 
-  const[gameData,setGameData] = useState(null); //stores fetched game data
+  const [gameData,setGameData] = useState(null); //stores fetched game data
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false); //checking fetch status, to prevent game play from loading before fetch occurs
-
-
+  const [correctScore, setCorrectScore ] = useState(0);
+  const [wrongScore, setWrongScore ] = useState(0);
+  const [showScore, setShowScore ] = useState(false);
 
   const handleChange = (e) => {
     setGameValues ({
@@ -57,6 +58,26 @@ function App() {
   }, [isSubmitted]);
 
 
+  const updateScore = (isCorrect) => {
+    if(isCorrect){
+      setCorrectScore((prevScore) => prevScore +1);
+    }else {
+      setWrongScore(prevwrongScore => prevwrongScore +1);
+    }
+  }
+  
+  const handleShowScore = () => {
+    setShowScore(true);
+  }
+
+  const restartQuiz = () => {
+    setCorrectScore(0);
+    setWrongScore(0);
+    setShowScore(false);
+    setIsSubmitted(false);
+  }
+
+
 
 
 
@@ -78,16 +99,17 @@ function App() {
 
     {/* {gameData && <pre>{JSON.stringify(gameData, null, 2)}</pre>} */}
 
-    {isSubmitted && !loading && gameData && <GamePlay 
-                                                gameData={gameData}
-                                                
-                                                />}
-    {/* <GamePlay 
-                                                gameData={gameData}/> */}
+    {isSubmitted && !loading && gameData && 
+      <GamePlay 
+        gameData={gameData}
+        updateScore={updateScore}
+        onShowScore={handleShowScore}
+        />}
 
-  
-     {/*will use game data to feed into game play/>ty
-      <GameResult /> */}
+      <GameResult 
+        correctScore={correctScore}
+        wrongScore={wrongScore}
+        onRestart={restartQuiz}/>
     </>
   )
 }
